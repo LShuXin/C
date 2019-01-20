@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+struct node
+{
+    char data;
+    struct node *left,*right;
+};
+struct node *creat(int n,char *str1,char *str2)//二叉树的重建与后续遍历输出
+{
+    struct node *root;
+    int i;
+    if(n==0)
+        return NULL;
+    root=(struct node *)malloc(sizeof(struct node));
+    root->data=str1[0];//找到根节点，根节点为str1（先序序列）的第一个
+    for(i=0;i<n;i++)//找到str2（中序序列）的根节点的位置
+    {
+        if(str2[i]==str1[0])
+            break;
+    }
+    root->left=creat(i,str1+1,str2);//（左子树的长度，左子树在str1中开始位置的地址，左子树在str2中开始位置的地址）
+    root->right=creat(n-i-1,str1+i+1,str2+i+1);//（右子树的长度，右子树在str1中开始位置的地址，右子树在str2中开始位置的地址）
+    printf("%c",root->data);//后序遍历输出
+    return root;
+};
+int main()
+{
+    int n;
+    char str1[1100],str2[1100];
+    scanf("%s",str1);
+    scanf("%s",str2);
+    n=strlen(str1);
+    creat(n,str1,str2);
+    printf("\n");
+    return 0;
+}
