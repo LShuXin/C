@@ -1,0 +1,12 @@
+struct BiTnode{
+    char data;
+    struct BiTnode *lchild,*rchild;
+}*root,*p;
+typedef BiTnode *BiTree;
+void InOrderTraverse(BiTree root){
+    if(!root) return;
+    printf("%c",root->data);
+    InOrderTraverse(root->lchild);
+    InOrderTraverse(root->rchild);
+}
+
