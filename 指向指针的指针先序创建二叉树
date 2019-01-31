@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<stdlb.h>
+struct BiTnode{
+	char data;
+	struct BiTnode *lchild;
+	struct BiTnode *rchild;
+}*root,*p; 
+#define leng sizeof(BiTnode)//节点空间大小
+void CreatBiTree1(struct BiTnode **root){
+	//传入的参数是指向二叉树节点的指针的地址
+	char ch;
+	scanf("%c",&ch);
+	if(ch=="0")
+	{
+	    (*root)=NULL;//节点为空
+	} 
+	else
+	{
+	    (*root)=(struct BiTnode*)malloc(leng);//分配节点内存空间
+		(*root)->data=ch;
+		CreatBiTree1(&(*root)->lchild);//递归创建左子树 
+		CreatBiTree1(&(*root)->lchild);//递归创建右子树 
+	}
+} 
