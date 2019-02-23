@@ -1,0 +1,115 @@
+#include<stdio.h>
+#include<stdlib.h> 
+#define LENG 100
+#define OVERFLOW -2
+#define ERROR 0
+#define OK 1
+//简单的带有头结点的队列
+//需要定义两种类型的节点：第一种存放数据元素以及指向下一个元素节点的指针
+//第二种节点用与定义一个头结点：头结点有两个指针指针域，指针类型就是上面的节点类型，用于分别指向队列的队头节点与队尾节点 
+typedef int ElemType; 
+typedef struct node{//如果没有typedef 则不能定义别名 
+	ElemType data;
+	struct node *next;
+}Qnode,*QueuePtr;
+//Qnode 元素节点类型
+//Queueptr 指向元素节点类型的指针 
+typedef struct{
+	Qnode *front;
+	Qnode *rear;
+}LinkQueue; 
+//linkQueue 队列头结点类型
+//初始化队列算法
+
+LinkQueue InitQueue(){
+	//初始化队列，有一个表头节点
+	//头结点的指针域都为空
+	LinkQueue Q;//LinkQueue 为头结点类型 里面有两个节点成员//QueuePtr 为指向节点的指针类型//Qnode 为节点类型
+	Q.front=Q.rear=(QueuePtr)malloc(sizeof(Qnode));//！！！！！！这就是表头节点 
+	Q.front->next==NULL;//表头结点的指针域为空 
+	return Q;
+}
+//带有头结点的队列插入新元素的算法
+LinkQueue Insert1(LinkQueue Q,ElemType e){
+	//队列的插入算法一
+	//传入的参数是一个队列的头结点
+	//在这个表头对应的队列的后面加上元素后，再返回这个队头
+	Qnode *p;
+	p=(QueuePtr)malloc(sizeof(Qnode));//QueuePtr 是指向元素节点的指针类型 Qnode 是元素节点类型
+	p->data=e;
+	p->next=NULL;
+	Q.rear->next=p;//链接上去
+	Q.rear=p;
+	return Q;	
+}
+//带有头结点的队列的插入算法
+int Insert2(LinkQueue *Q,ElemType e){
+	//传入的参数是指向对头的指针，返回值代表了是否成功插入元素
+	//考虑了动态分配内存失败
+	Qnode *p;
+	p=(QueuePtr)malloc(sizeof(Qnode));//QueuePtr 为指向元素节点的指针类型 Qnode为元素节点类型
+	if(!p){
+	    printf("OVERFLOW!");
+	    return ERROR;
+	}
+	p->data=e;
+	p->next=NULL;
+	Q->rear->next=p;
+	Q->rear=p;
+	return OK;	
+}
+
+LinkQueue Delete(LinkQueue Q,ElemType *e){
+	if(Q.front==Q.rear){//都指向了头结点（不是队头节点） ，队列已经为空了
+	    printf("队列已空，无法出队！");
+		return Q;
+	}
+	//单队列 的删除算法 传入一个队列变量，和一个数据元素类型的指针
+	//返回值为出队后的队列
+	//增加数据元素指针作为参数的目的是在出队的同时，先将删除的数据元素copy一份到另一个变量
+	QueuePtr p;//需要用到一个指向队头（而不是头结点）的指针已完成指向的转移
+	p=Q.front->next;//p指向了队头节点而不是头结点 
+	(*e)=p->data; 
+	Q.front->next=p->next;//头结点（不是队头节点）指向新的队头节点 
+	//如果只有一个队头节点,那么出队后，应该是rear指向头结点（不是队头）
+	if(Q.rear==p){//!!!!!!!!!!!!!!!!!!!!!
+		Q.rear=Q.front; //再次同时指向队头节点 
+	} 
+	free(p);
+	return Q; 	
+} 
+int main(){
+	int flag=0;//插入完成的标志 
+	int e,i;
+	//初始化一个队列
+	LinkQueue linkqueue;
+	linkqueue=InitQueue(); 
+	//向队列中输入元素
+	for(i=1;i<10;i++){
+		Insert2(&linkqueue,i*i);
+	}
+	for(i=1;i<10;i++){
+		Delete(linkqueue,&e);
+		printf("%d\n",e);
+	} 
+	//输出队列元素 
+	return 0;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
