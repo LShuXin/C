@@ -1,0 +1,12 @@
+#include<stdio.h>
+///二叉搜索树查找最大元素的递归算法
+typedef BiTree Position; 
+Position MinFind(BiTree root){
+	if(!root) { 
+		return NULL;//从此处返回只有可能发生在第一次调用 
+	}else if(root->lchild==NULL){//如果没有左子节点了，那么该节点一定是最小的 
+		return root; 
+	}else{//如果还有左子节点，那么该节点一定不是最小 
+	    return MinFind(root->lchild); 
+	}
+} 
