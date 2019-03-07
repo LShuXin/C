@@ -1,0 +1,16 @@
+#include<stdio.h>
+typedef BiTree Position;
+Position Insert(BiTree root,ElemType data){
+    if(!root){//如果传入的是一颗空树，直接将元素插入到根节点上，并返回根节点
+        root=(BiTree)malloc(sizeof(BiTnode));
+        root->data=data;
+        root->lchild=root->rchild=NULL;
+        return root;/////!!!!!!!!!!!!!!!!!!!**********忘记返回**************
+    }else if(data<root->data){
+        return Insert(root->lchild,data);//应该插到左子树
+    }else if(data>root->data){
+        return Insert(root->rchild,data);//应该插到右子树
+    }else{//找到了就直接返回该位置
+        return root;
+    }
+}
