@@ -1,0 +1,24 @@
+#include<stdio.h>
+typedef BiTree Position;
+Position BiTreeDelete(BiTree root,ElemType data){
+    Position temp;
+    if(!root){
+        printf("未找到该元素");
+        root=NULL;
+    }else if(data<root->data){
+        root->lchild=BiTreeDelete(root->lchild,data);
+    }else if(data>root->data){
+        root->rchild=BiTreeDelete(root->rchild,data);
+    }else{
+        if(root->lchild&&root->rchild){//如果既有左节点又有右节点，就用右节点的最小值来填充
+            temp=MinFind(root->rchild);//找到右子树中的最小元素节点
+            root->data=temp->data;//被删除节点的数据用右子树中的最小元素来填充
+            root->rchild=BiTreeDelete(root->rchild,temp->data);//在右子树中删除最小元素
+        }else if(!root->lchild){ //如果只有右子节点或者没有节点
+            root=root->rchild;
+        }else{//如果只有左子节点
+            root=root->lchild;
+        }
+    }
+    return root;
+}
