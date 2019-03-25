@@ -1,0 +1,37 @@
+#include<stdio.h>
+//先用堆结构将所有的数据元素存储，再进行过滤
+void PercDown(Heap H,int p)
+{
+    //将堆h中以H->data[p]为根的子堆的堆过滤成为最大堆
+    int parent,child;
+    ElemType x;
+    x=H->data[p];//前取出堆顶元素
+    for(parent=p; 2*parent<=H->size; parent=child) //parent=p ！！！！忽略出错
+    {
+        child=parent*2;
+        if((child<=H->size)&&(H->data[child]<H->data[child+1]))
+        {
+            child++;
+        }
+        if(x>H->data[child])
+        {
+            break;
+        }
+        else  //向下过滤
+        {
+            H->data[parent]=H->data[child];
+        }
+    }
+    H->data[parent]=x;
+}
+void BuildHeap(Heap H){
+    int i;
+    for(i=H->size/2;i>0;i--){
+       PercDown(H,i);
+    }
+}
+
+
+
+
+
