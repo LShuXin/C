@@ -1,0 +1,27 @@
+#include<stdio.h>
+//在构造哈夫曼树之前，所有的元素已经翻到了堆中，在进行构建·哈夫曼树之前需要将堆转化为最小堆
+typedef struct HTnode HuffmanTree;
+typedef struct HTnode{//定义哈夫曼树的节点结构
+    int weight;
+    HuffmanTree Lchild;
+    HuffmanTree Rchild;
+}
+HuffmanTree Huffman(Heap H){
+ int i,n;
+ HuildHeap(H);// //将堆转化为最小堆
+ HuffmanTree T;//定义一颗哈弗曼树
+ n=--H->size;//要对最小堆进行size-1次哈弗曼合并
+ for(;i>0;i--){
+    T=(HuffmanTree)malloc(sizeof(HTnode));
+    T->Lchild=DeleteMin(H);
+    T->Rchidl=DeleteMin(H);//执行一次合并
+    T->weight=T->Lchild->weight+T->Rchild->weight;
+    Insert(H,T);//将新树追加到最小堆
+ }
+ return DeleteMin(H);//最后剩下的那个就是指向最终哈弗曼树的根指针
+}
+
+
+
+
+
