@@ -1,0 +1,71 @@
+#define MaxVertexNum 100 //最大顶点个数
+#define INFINITY 65535
+typedef int Vertex;//顶点下标
+typedef int WeightType;//假定权重为整型
+typedef char DataType;//假定图节点的数据为字符
+typedef struct Gnode *PtrToGnode;//指向图的指针类型
+typedef struct Gnode{
+   int Ne;//图的顶点数
+   int Nv;//图的边数
+   WeightType G[MaxVertexNum][MaxVertexNum];//边与边的权值，即邻接矩阵
+   DataType Data[MaxVertexNum];//存放顶点的数据，若顶点没有数据，则data【】可以不出现
+}
+typedef PtrToGnode MGraph;//邻接矩阵图类型，指针类型
+//边的定义
+typedef struct Enode *PtrToEnode;
+typedef struct Enode{
+    Vertex  v1,v2;
+    Weight weight;
+}
+//图的初始化算法,创造一个图，有最大边数，邻接矩阵为空·
+MGraph CreatMGraph(int MaxVertexNum){
+   MGraph Graph;
+   Vertex v,w;
+   Graph=(MGraph)malloc(sizeof(Gnode));
+   Graph->Nv=MaxVertexNum;
+   Graph->Ne=0;
+   for(v=0;v<Graph->Nv;v++){
+      for(w=0;w<Graph->Nv;w++){
+        Graph->G[v][w]=INFINITY;
+      }
+   }
+return Graph;
+}
+//邻接矩阵表示的图的边的插入算法
+//传入一个图和一条边，返回插入边后的图
+//无向图的插入算法
+void InsertEdge(MGraph Graph,Edage E){
+    Graph[E->v1][E->v2]=E->weight;
+    Graph[E->v2][E->v1]=E->weight;
+}
+//图的建立
+MGraph BuildMGraph(){
+    MGraph Graph;
+    int Nv,Ne,i;
+    Edge E;
+    scanf("%d",&Nv);//读入顶点数目
+    Graph=CreatMGraph(Nv);
+    scanf("%d",&Ne);//读入边的数目
+    Graph->Ne=Ne;
+    //建立边关系矩阵
+    if(!Graph->Ne){
+        for(i=0;i<Graph->Ne;i++){
+         scanf("%d%d%d",&(E->v1),&(E->v2),&(E->weight));
+         InsertEdge(Graph,E);
+        }
+    }
+    //读入顶点数据
+    if(!Graph->Nv){
+        for(i=0;i<G->Nv;i++){
+            scanf("%c",&(Graph->Data[i]));
+        }
+    }
+    return Graph;
+}
+
+
+
+
+
+
+
