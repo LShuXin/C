@@ -1,0 +1,13 @@
+#define MAXSIZE 100
+typedef int KeyType;//一条记录键的类型
+typedef int InfoType;//记录中的其他信息
+//记录类型
+typedef struct{
+    KetType key;
+    InfoType otherinfo；
+}RecType;
+//顺序表类型
+typedef struct{
+    RecType r[MAXSIZE+1];//监视哨兵
+    int length;//顺序表的长度
+}SeqList;
