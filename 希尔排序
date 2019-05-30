@@ -1,0 +1,26 @@
+typedef int ElemType;
+void shellSort(ElemType arr[],int len)
+{
+    int D,p,i,si;
+    ElemType temp;
+//D用于存放当前的增量
+//p用于外层循环
+//i用于内层循环
+//si 用于在增量数组中进行索引
+//temp用于暂时保存需要调整到前面去的数据
+    ElemType sedgewick[]= {929,505,209,108,41,19,5,1,0};
+    for(si=0; sedgewick[si]>=len; si++)
+        ;//增量不能大于序列的总长度，而且要小于
+    for(D=sidegwick[si]; D>0; D=sidgewick[++si])
+    {
+        for(p=D; p<len; p++)//不是p+=D，外层始终以1为增量循环
+        {
+            temp=arr[p];
+            for(i=p; i>=D&&arr[i-D]>temp; i-=D)//i》=D而不是i>0
+            {
+                arr[i]=arr[i-d];//向后平移元素
+            }
+            arr[i]=temp;
+        }
+    }
+}
