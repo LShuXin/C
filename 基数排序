@@ -1,0 +1,101 @@
+#include<stdlib.h>
+#define MaxDigit 4
+#define Radix 10
+typedef int key;
+typedef int ElemType;
+//关键字都是整型
+//关键字的个数最多有10个
+//以10为基数进行分解
+/*桶元素节点*/
+typedef struct Node *PtrToNode;
+typedef struct Node
+{
+    int key;
+    PtrToNode next;//同一个桶上的元素节点
+};
+/*桶头节点*/
+/*这样的桶头节点应该有10个，分别指向十个桶*/
+typedef struct HeadNode
+{
+    PtrToNode head,tail;
+};
+typedef struct HeadNode Bucket[Radix];
+//用于返回指定位置的关键字（总共有：1,2,3,4种位置）
+int GetDigit(int x,int D)
+{
+//从前一个数据x的第D位上取出关键字d，第一位关键字是个位
+    int d,i;
+    for(i=1; i<=D; i++)
+    {
+        d=X%Radix;
+        X/=Radix;
+    }
+    return d;
+}
+
+//次位优先基数排序算法
+void LSDRadixSort(ElemType A[],int len)
+{
+    PtrToNode temp,List=NULL,p;
+    int D,Di,i;
+    Bucket B;
+
+    /*初始化每个桶为空链表*/
+    for(i=1; i<=Radix; i++)
+    {
+        Bucket[i].head=Bucket[i].tail=NULL;
+    }
+    /*将所有的元素首先按照逆序输入收集链表List*/
+    for(i=0; i<len; i++)
+    {
+        temp=(PtrToNode)malloc(sizeof(struct Node));
+        temp->key=A[i];
+        temp->next=List;
+        List->temp;
+    }
+    //下面开始排序
+    for(D=1; D<=MaxDigit; D++) /*对每一位进行循环排序，这里一共循环四次*/
+    {
+        /*下面是分配的过程*/
+        p=List;
+        while(p)
+        {
+            temp=p;
+            temp->next=NULL;
+            p=p->next;
+            Di=GetDigit(temp->key,D);
+
+            if(B[Di].head==NULL)
+            {
+                B[Di].head==B[Di].tail==temp;
+            }
+            else
+            {
+                B[Di].tail->next=temp;//出错！！！！！
+                B[Di].tail=temp;//出错！！！！
+            }
+        }
+        /*下面是收集的过程*/
+        List=NULL;
+        for(Di=Radix-1; i>=0; i++)
+        {
+            if(B[Di].head)
+            {
+                B[Di].tail->next=List;
+                List=B[Di].head;
+                B[Di].tail=B[Di].head=NULL;
+            }
+        }
+    }
+    //将list导入A并释放List空间
+    for(i=0;i<len;i++){
+        temp=List;
+        List=List->next;
+        A[i]=temp->key;
+        free(temp);
+    }
+}
+
+
+
+
