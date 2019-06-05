@@ -1,0 +1,17 @@
+typedef int ElemType;
+void HalfSearch(ElemType A[],int len,ElemType key)
+{
+    //简单的折半查找
+    int Low,High,Mid;
+    mid=(High+Low)/2;
+    while(Low<=High)
+    {
+        if(A[Mid]<key)
+            Low=Mid+1;
+        else if(A[Mid]>key)
+            High=Mid-1;
+        else
+            return Mid;
+    }
+    return 0;
+}
