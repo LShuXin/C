@@ -1,11 +1,12 @@
 typedef int ElemType;
 void HalfSearch(ElemType A[],int len,ElemType key)
 {
-    //简单的折半查找
-    int Low,High,Mid;
-    mid=(High+Low)/2;
+    //jiandan折半查找
+    int Low=1,High=len,Mid;
+
     while(Low<=High)
     {
+        Mid=(High+Low)/2;//位置出错
         if(A[Mid]<key)
             Low=Mid+1;
         else if(A[Mid]>key)
@@ -15,3 +16,4 @@ void HalfSearch(ElemType A[],int len,ElemType key)
     }
     return 0;
 }
+
