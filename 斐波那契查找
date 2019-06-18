@@ -1,0 +1,41 @@
+typedef int ElemType;
+//F是一个全局的斐波那契数组
+int Finonacci_search(  ElemType *a,int n,ElemType key)
+{
+    int high,low,mid,i,k;
+    low=1;
+    heigh=n;
+    k=1;
+    while(n>F[k]-1)//找到斐波那契数组中第一个比数组的长度大的元素的位置
+        k++;
+    for(i=n; i<F[k]-1; i++)
+    {
+        a[i]=a[n];//用原数组的最后一个元素填充
+    }
+    while(low<=heigh)
+    {
+        mid=low+F[k-1]-1;//注意最后一个是减
+        if(key<a[mid])
+        {
+            heigh=mid-;;
+            k--;
+        }
+        else if(key>a[mid])
+        {
+            low=mid+1;
+            k+=2;
+        }
+        else
+        {
+            if(mid<=n)
+            {
+                return mid;
+            }
+            else
+            {
+                return n;
+            }
+        }
+    }
+    return 0;
+}
