@@ -1,0 +1,39 @@
+//简单很多
+#include<stdlib.h>
+#include<stdio.h>
+#define LENG sizeof(struct node)
+typedef int ElemType;
+typedef struct node
+{
+    ElemType data;
+    struct node *next;
+} node,*LinkList;
+
+struct node *Create(struct node *head,ElemType e)
+{
+    struct node *p,*q,*f;
+    q=head;
+    p=head->next;
+    while(p&&e>p->data)
+    {
+        q=p;
+        p=p->next;
+    }
+    f=(struct node)malloc(LENG);
+    f->data=e;
+    q->next=f;
+    f->next=p;
+    return head;
+};
+int main()
+{
+    struct node *head;
+    head=NULL;//重要
+    ElemType e;
+    scanf("%d",e);
+    while(e!=0)
+    {
+        head=Create(head,e);
+        scanf("%d",e);
+    }
+}
