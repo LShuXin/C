@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define LENG sizeof(struct node)
+typedef int ElemType;
+typedef struct node
+{
+    ElemType data;
+    struct node *next;
+} node,*LinkList;
+//生成带有头结点的
+//先进先出的单链表
+struct node *Create1()
+{
+    struct node *head,*tail,*p;
+    ElemType e;
+    head=(struct node *)malloc(LENG);
+    tail=head;
+    scanf("%d",&e);
+    while(e!=0)
+    {
+        p=(struct node *)malloc(LENG);
+        p->data=e;
+        tail->next=p;
+        tail=p;
+        scanf("%d",&e);
+    }
+    tail->next=NULL;
+    return head;
+}
