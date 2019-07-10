@@ -1,0 +1,12 @@
+#include<stdio.h>
+int arr[6]={1,2,10,4,5,6};
+int main(){
+	int max_elem,j;
+	max_elem=arr[0];
+	for(j=1;j<6;j++){
+		if(arr[j]>max_elem)
+		    max_elem=arr[j];
+	}
+	printf("The max Element is %d\n",max_elem);
+	return 0;
+}
