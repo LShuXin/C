@@ -1,0 +1,51 @@
+#include<stdio.h>
+#define false 0
+#define true 1
+//typedef int bool;
+typedef int ElemType;
+void swap(ElemType *a,ElemType *b) {
+	ElemType temp;
+	temp=*a;
+	*a=*b;
+	*b=temp;
+}
+
+void bubble2(ElemType arr[],int len) {
+	int p,i;
+	bool flag;
+	for(p=len-1; p>=0; p--) {
+		flag=false;
+		for(i=0; i<p; i++) {
+			if(arr[i]>arr[i+1]) {
+				swap(&arr[i],&arr[i+1]);
+				flag=true;
+			}
+			if(flag==true)
+				break;
+		}
+	}
+}
+void bubble3(int arr[],int len) {
+	bool change;
+	ElemType i,j,temp;
+	i=len-1;
+	do {
+		change=false;
+		for(j=0; j<i; j++) {
+			if(arr[j]>arr[j+1]) {
+				temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
+				change=true;
+			}
+		}
+	} while(change&&(--i>=1));
+		for(i=0; i<len; i++) {
+	    printf("%d\n",arr[i]);
+	}
+}
+int main() {
+	int data[11]= {56,5,61,65,12,31,15,43,22,8,4},i;
+	bubble3(data,11);
+	return 0;
+}
