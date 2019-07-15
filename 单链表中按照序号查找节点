@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef int ElemType;
+typedef struct LNode{
+    ElemType data;
+    struct LNode *next;
+}LNode,*LinkList;
+LinkList GetItem(LinkList &L,int i){
+    int j=1;
+    LinkList p=L->next;
+    if(i==0)
+        return L;
+    if(i<1)
+        return NULL;
+    while(j<i&&p){
+        p=p->next;
+        j++;
+    }
+    return p;
+}
+
