@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef int ElemType;
+typedef struct LNode
+{
+    ElemType data;
+    struct LNode *next;
+} LNode,*LinkList;
+
+LinkList LocateItem(LinkList &L,ElemType e){
+    LinkList p=L->next;
+    while(p!=NULL&&p->data!=e){//是p！=null 而不是p->next!=null
+        p=p->next;
+    }
+    return p;
+}
+
