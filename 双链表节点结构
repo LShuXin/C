@@ -1,0 +1,12 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef int ElemType;
+typedef struct DNode{
+    ElemType data;
+    struct DNode *next,*prior;
+}DNode,*DLinkList;
+int main(){
+    return 0;
+}
+
+
