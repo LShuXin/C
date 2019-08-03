@@ -19,3 +19,8 @@ void CreatBiTree1(BiTree **root){
          CreatBiTree1(&(*root)->lchild);
     }
 }
+int main(){
+    BiTree root;
+    CreatBiTree1(&root);
+    return;
+}
