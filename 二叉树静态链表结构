@@ -1,0 +1,6 @@
+#define MAXSIZE 100
+typedef int ElemType;
+struct SBiTNode{
+    ElemType data;
+    int lchild,rchild;
+}s[MAXSIZE+1];
