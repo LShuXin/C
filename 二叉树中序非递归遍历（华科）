@@ -1,0 +1,29 @@
+#define MAXSIZE 100
+typedef int ElemType;
+typedef struct BiTNode
+{
+    ElemType data;
+    struct BiTNode *lchild,*rchild;
+}*root,*p;
+typedef struct BiTNode *BiTree;
+void MidOrderTraverse(BiTree T)
+{
+    BiTree s[MAXSIZE+1];//指针栈
+    int top;
+    do
+    {
+        while(T)
+        {
+            s[++top]=T;
+            T=T->lchild;
+        }
+        if(top)
+        {
+            T=s[top--];
+            printf("%d",T->data);
+            T=T->rchild;
+        }
+
+    }
+    while(top||T)
+    }
