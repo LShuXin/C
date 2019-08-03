@@ -1,0 +1,7 @@
+typedef int ElemType;
+typedef struct BiTNode{
+    ElemType data;
+    typedef struct *lchild;
+    typedef struct *rchild;
+}*root,*p;
+typedef struct BiTNode *BiTree;
