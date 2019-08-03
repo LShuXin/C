@@ -1,0 +1,14 @@
+typedef int ElemType;
+typedef struct BiTNode{
+    ElemType data;
+    struct BiTNode *lchild,*rchild;
+}*root,*p;
+typedef struct BiTNode *BiTree;
+void MidOrderTraverse(BiTree T){
+    if(T){
+        MidOrderTraverse(T->lchild);
+        printf("%d",T->data);
+        MidOrderTraverse(T->rchild);
+    }
+    return;//！！！！！！！！！！！！！！！！！！！！
+}
