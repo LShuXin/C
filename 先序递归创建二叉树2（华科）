@@ -21,3 +21,8 @@ BiTree CreatBiTree2(){
     }
     return root;//!!!!!!!!!!!!!!!!!!!
 }
+int main(){
+    BiTree root;
+    root=CreatBiTree2();
+    return;
+}
