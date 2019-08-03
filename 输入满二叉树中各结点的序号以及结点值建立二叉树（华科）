@@ -1,0 +1,43 @@
+#include<stdio.h>
+#define MAXSIZE 100
+typedef char ElemType;
+typedef struct BiTNode
+{
+    ElemType data;
+    struct BiTNode *lchild,*rchild;
+}*root,*p;
+typedef struct BiTNode *BiTree;
+BiTree CreatBitree()
+{
+    int i,j;
+    BiTree root,p,s[MAXSIZE+1];
+    ElemType x;
+    printf("i=,x=:");
+    scanf("%d%c");
+    while(i!=0)
+    {
+        p=(BiTree)malloc(sizeof(struct BiTNode));
+        p->data=x;
+        p->lchid=p->rchild=NULL;
+        s[i]=p;
+        if(i=1)
+        {
+            root=p;
+        }
+        else
+        {
+            j=i/2;
+            if(i%2)
+            {
+                s[j]->rchild=p;
+            }
+            else
+            {
+                s[j]->lchid=p;
+            }
+        }
+        printf("i=,x=:");
+        scanf("%d%c");
+    }
+    return root;
+}
