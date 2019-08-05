@@ -1,0 +1,93 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAXSIZE 100
+typedef char ElemType;
+//线索二叉树节点结构
+typedef struct BiTNode{
+    ElemType data;
+    struct BiTNode *lchild,*rchild;
+    int ltag,rtag;
+}*root,*p;
+//线索二叉树节点指针
+typedef struct BiTNode *BiTree;
+
+//先序创建二叉树,先不管线索,
+//后面在遍历的时候在进行添,
+void CreatBiTree(struct BiTNode **root){
+    ElemType x;
+    scanf("%c",&x);
+    if(x=='@'){
+        (*root)=NULL;
+    }else{
+        (*root)=(BiTree)malloc(sizeof(struct BiTNode));
+        (*root)->data=x;
+        CreatBiTree(&(*root)->lchild);
+        CreatBiTree(&(*root)->rchild);
+    }
+}
+//先序遍历二叉树
+void PreOrderTraverse(BiTree t){
+    if(t){
+        PreOrderTraverse(t->lchild);
+        printf("%c",t->data);
+        PreOrderTraverse(t->rchild);
+    }
+    return;
+}
+//先序遍历二叉树的同时将其先序线索化
+//先序线索二叉树
+void PreOrderTraverseThread(BiTree t){
+	printf("\n");
+	int top=0;//栈指针置空
+	BiTree s[MAXSIZE+1],pre=NULL; //指针栈 
+	do{
+		while(t){
+			s[++top]=t;
+			t=t->lchild;
+		}
+		if(top){
+			t=s[top--];
+			printf("%c",t->data);
+			if(t->lchild!=NULL){
+				t->ltag=0;
+			}else{
+				t->ltag=1;
+				t->lchild=pre; 
+			}
+			//!!!!!!!!!!!!!!!
+			if(pre!=NULL){
+				if(pre->rchild!=NULL){
+					pre->rtag=0;
+				}else{
+					pre->rtag=1;
+					pre->rchild=t;
+				}
+			}
+			//!!!!!!!!!!!!!!!
+			
+			pre=t;
+			t=t->rchild;	
+		}
+		
+	}while(top||t);
+	pre->rtag=1;
+	return;
+} 
+
+
+
+
+
+
+int main(){
+    BiTree T;
+    //首先先序创建一颗二叉树
+    CreatBiTree(&T);
+    //生成先序的二叉树之后先试着先序遍历
+    //以查看是否正确
+    PreOrderTraverse(T);
+    //线索化二叉树
+	PreOrderTraverseThread(T); 
+	//遍历先序线索二叉树 	
+    return 0;
+}
