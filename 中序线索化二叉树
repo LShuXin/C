@@ -13,7 +13,7 @@ typedef struct BiTNode *BiTree;
 
 //先序创建二叉树,先不管线索,
 //后面在遍历的时候在进行添,
-//先序建立二叉树 
+//先序建立二叉树
 void CreatBiTreePreOrder(struct BiTNode **root){
     ElemType x;
     scanf("%c",&x);
@@ -40,7 +40,7 @@ void InOrderTraverse(BiTree t){
 void InOrderTraverseThread(BiTree t){
 	printf("\n");
 	int top=0;//栈指针置空
-	BiTree s[MAXSIZE+1],pre=NULL; //指针栈 
+	BiTree s[MAXSIZE+1],pre=NULL; //指针栈
 	do{
 		while(t){
 			s[++top]=t;
@@ -49,16 +49,13 @@ void InOrderTraverseThread(BiTree t){
 		if(top){
 			t=s[top--];
 			printf("%c",t->data);
-			
+
 			if(t->lchild!=NULL){
 				t->ltag=0;
 			}else{
 				t->ltag=1;
-				t->lchild=pre; 
+				t->lchild=pre;
 			}
-			
-			
-			
 			//!!!!!!!!!!!!!!!
 			if(pre!=NULL){
 				if(pre->rchild!=NULL){
@@ -69,32 +66,65 @@ void InOrderTraverseThread(BiTree t){
 				}
 			}
 			//!!!!!!!!!!!!!!!
-			
 			pre=t;
 			t=t->rchild;
-			
-				
 		}
-		
+
 	}while(top||t);
-	pre->rtag=1;
+	pre->rtag=1;//中序倒数第二个节点的线索
 	return;
-} 
+}
 //中序线索二叉树的遍历
+void InOrderTraverse_Thread(BiTree t){
+    printf("\n");
+	BiTree p;
+	p=t;
+	if(p!=NULL){//在根节点不为空的条件下找到该二叉树的找到最左边的节点
+			while(p->lchild!=NULL){
+			p=p->lchild;
+		}
+	}
+	printf("%c",p->data);//访问中序第一个节点
+	//找到第一个节点之后，对后续节点的访问
+	//要么是最左节点的访问，要么是最左节点
+	//的右线索指向的下一个中序节点
+	//下面的循环用于线索指向的下一个中序节点的访问
+	while(p->rchild!=NULL){
+	    //以后每一个节点的rchild，要么是普通的二叉树节点
+        //要么是下一个线索节点
+        if(p->rtag==1){//说明这是个线索，就是下一个要访问的节点
+            p=p->rchild;
+        }else{//否则，就按照正常的中序遍历继续走，找到新节点的最左节点
+            p=p->rchild;
+            while(p->ltag!=1){//找到新的最左侧的节点
+                //左子树不是线索,那么左子树必定为空或者为组新的左子树
+                //如果找到的左子树为线索，那么线索处本来一定为空，才有
+                //可能作为线索的存储空空间，所以说找到的该节点右是一个最左侧的节点。
+                //注意不能把：p->lchild!=NULL，作为寻找最左节点的条件，因为已经线索化，
+                //最左侧的节点的左指针也不为空，已经指向中序的上一个节点
+                p=p->lchild;
+            }
+        }
+        //通过上面两步，要么找到了新的最左节点作为中序下一个节点，要么找到了最左节点的
+        //后继指向的下一中序节点
+        printf("%c",p->data);
+	}
+	return;
+}
 
 
 
 
 
- 
 int main(){
     BiTree T;
     //首先先序创建一颗二叉树
     CreatBiTreePreOrder(&T);
     //中序遍历
     InOrderTraverse(T);
-    //中序线索化二叉树
-	InOrderTraverseThread(T); 
-	//遍历先序线索二叉树 	
+    //中序遍历并且线索化二叉树
+	InOrderTraverseThread(T);
+	//采用中序线索化后的方法中序遍历二叉树
+	InOrderTraverse_Thread(T);
     return 0;
 }
