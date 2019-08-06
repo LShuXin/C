@@ -1,0 +1,10 @@
+int PreOrderTraverseLeaves(BiTree t){//二叉树节点指针类型
+    int n=0;//不确定本次传入的是不是空指针，故先设为零，如果是的话就可以在后面直接返回出去，
+    //而不用担心尚未赋值就返回
+    if(t!=NULL){
+        n++;
+        n+=PreOrderTraverseLeaves(t->lchild);
+        n+=PreOrderTraverseLeaves(t->rchild);
+    }
+    return n;
+}
