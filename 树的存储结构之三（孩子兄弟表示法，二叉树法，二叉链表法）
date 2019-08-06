@@ -1,0 +1,5 @@
+struct SNode{
+    ElemType data;
+    struct SNode *firstchild;
+    struct SNode *nextbrother;
+}
