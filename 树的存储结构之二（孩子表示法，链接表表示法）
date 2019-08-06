@@ -1,0 +1,12 @@
+//1.固定大小的节点格式
+struct SNode{
+    ElemType data;
+    int degree=10;//节点的度
+    struct SNode *children[10];//也就是说这是一颗10度树的节点结构
+};
+//2.不固定大小的节点格式
+struct SNode{
+    ElemType data;
+    int degree=0;//节点的度，初始默认为零，后序根据实际情况进行调整
+    struct SNode *children;//以该节点为根的子树的根指针数组，在实际使用过程中使用堆栈空间进行动态调整
+};
