@@ -1,0 +1,9 @@
+struct ChildNode{
+    int listnum;//利用该序号在ListNode中找到相应的子节点
+    struct ChildNode *nextchild;//该根节点的下一个子节点
+}
+struct ListNode{
+    ElemType data;//存放该节点的数据
+    struct ChildNode *firstchild;//指向该节点的第一个孩子
+}
+struct ListNode tree[MAXSIZE+1];//
