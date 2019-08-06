@@ -1,0 +1,10 @@
+struct ChildNode{
+    int listnum;//在ListNode中寻找该节点表示的节点
+    struct ChildNode *nextchild;//同一根节点的另一个子节点
+}
+struct ListNode{
+    ElemType data;//该节点的数据域
+    struct ListNode *parent;//该节点的父节点
+    struct ChildNode *firstchild;//该节点的第一个子节点
+}
+struc ListNode tree[MAXSIZE+1];//树
