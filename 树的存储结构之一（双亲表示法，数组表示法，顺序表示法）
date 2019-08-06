@@ -1,0 +1,4 @@
+struct SNode{
+   ElemType data;
+   int parent,child;
+}s[MAXSIZE+1];
