@@ -1,0 +1,44 @@
+#include<stdio.h>
+char I='I',O='O';
+int charge(char list[],int len)//char *list[] 错误
+{
+    int rest=0;
+    int tag=0;
+    for(int i=0; i<len; i++)
+    {
+        printf("%c",list[i]);
+        rest+=(list[i]=='I')?1:-1;
+        if(rest<0)
+        {
+            tag=1;//不符合
+            break;
+        }//一直加到最后
+    }
+    printf("%d",rest);
+    if(rest!=0||tag==1)
+    {
+        return 0;//不符合
+    }
+    else
+    {
+        return 1;//符合
+    }
+}
+int main()
+{
+    int len=8,res=0;
+    //char list[8]= {I,O,I,I,O,I,O,O};
+    //char list[8]={I,O,O,I,O,I,I,O};
+    //char list[8]={I,I,I,O,I,O,I,O};
+    char list[8]={I,I,I,O,O,I,O,O};
+    res=charge(list,len);
+    if(res)
+    {
+        printf("ok");
+    }
+    else
+    {
+        printf("err");
+    }
+    return 0;
+}
