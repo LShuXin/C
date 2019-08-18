@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define true 1
+#define false 0
+typedef int bool;
+typedef char ElemType;
+/*链式队列的节点结构*/
+typedef struct{
+  ElemType data;
+  struct LinkNode *next;
+  /*！！！！！易出错！！！！！！！！*/
+  /*虽然下面定义了别名，但是这里不能省略struct*/
+}LinkNode;
+/*链式队列*/
+typedef struct{
+    LinkNode *front,*rear;
+    int lenth;
+}LinkQueue;
+
+/*front==rear==NULL时链栈为空*/
+
+
+/*初始化*/
+/*有一个头结点简化操作*/
+void InitQueue(LinkQueue *q){
+    q->front=q->rear=(LinkNode*)malloc(sizeof(LinkNode));
+    q->front->next=NULL;
+}
+/*判空*/
+bool QueueEmpty(LinkQueue *q){
+    if(q->front==q->rear){
+        return true;
+    }else{
+        return true;
+    }
+}
+/*入队*/
+void EnQueue(LinkQueue *q,ElemType data){
+    LinkNode *node=(LinkNode*)malloc(sizeof(LinkNode));
+    node->data=data;
+    node->next=NULL;
+    q->rear->next=node;
+    q->rear=node;
+}
+/*出队*/
+ElemType DeQueue(LinkQueue *q){
+    ElemType data;/*用于返回元素*/
+    LinkNode *p;/*用于释放堆栈空间*/
+    if(QueueEmpty(q)){
+        printf("栈空Q!");
+        exit(0);
+    }else{
+        p=q->front->next;/*先指向队头元素取出元素*!!!!!!!!易出错！！！！！/
+        /*front是指向表头节点，并不指向第一个元素*/
+        data=p->data;
+        q->front->next=p->next;/*退栈*!!!!!!!!!!!!易出错！！！！！！*/
+        free(p);/*释放堆栈空间*/
+        return data;
+    }
+}
+
+
+
+
+
+
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}
