@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAXSIZE 50
+#define true 1
+#define false 0
+typedef char ElemType;
+typedef int bool;
+struct SqQueue{
+    ElemType data[MAXSIZE];
+    int front,rear;
+};
+
+/*初始化*/
+void InitQueue(struct SqQueue *q){//返回类型
+   q->front=q->rear=0;//！！！！！！！！！！！
+};
+
+
+/*判空*/
+bool QueueEmpty(struct SqQueue *q){//返回类型
+    if(q->front==q->rear){
+        return true;
+    }else{
+        false;
+    }
+}
+
+
+/*进队*/
+bool EnQueue(struct SqQueue *s,ElemType data){//返回类型
+    if(s->rear==MAXSIZE){
+        printf("溢出！");
+        return false;
+    }else{
+        s->data[s->rear++]=data;
+        return true;
+    }
+}
+
+/*出队*/
+ElemType DeQueue(struct SqQueue *q){
+    if(q->front==q->rear){
+        printf("队列已为空！");
+        exit(0);
+    }else{
+        return q->data[q->front++];
+    }
+}
+
+
+
+
+int main()
+{
+    /*
+      顺序队列的结构
+      顺序队列的进、出队
+      顺序队列的判空
+
+    */
+    /*
+    队头指针指向队头元素
+    队尾指针指向队尾元素的下一个位置
+    */
+    printf("Hello world!\n");
+    return 0;
+}
