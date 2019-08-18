@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAXSIZE 50
+#define true 1
+#define false 0
+typedef int bool;
+typedef  char ElemType;
+struct SqQueue
+{
+    ElemType data[MAXSIZE];
+    int front,rear;
+};
+
+/*
+front 指向队头元素
+rear指向队尾元素的下一位置
+采用rear的下一位置是front的方式来判队满
+*/
+
+/*初始化循环队列*/
+void InitQueue(struct SqQueue *q)
+{
+    q->front=q->rear=0;
+}
+/*判队空*/
+bool QueueEmpty(struct SqQueue *q)
+{
+    if(q->front==q->rear)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+/*进队*/
+bool EnQueue(struct SqQueue *q,ElemType data){
+    if((q->rear+1)%MAXSIZE==q->front){//判栈满
+        return false;
+    }else{
+        q->data[q->rear]=data;
+        q->rear=(q->rear+1)%MAXSIZE;//!!!!!!
+        return true;
+    }
+
+
+}
+/*出队*/
+ElemType DeQueue(struct SqQueue *q){
+    ElemType data;
+    if(QueueEmpty(q)){
+        printf("队空！");
+        exit(0);
+    }else{
+        data=q->data[q->front];
+        q->front=(q->front+1)%MAXSIZE;
+        return data;
+    }
+}
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}
