@@ -1,0 +1,128 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef char ElemType;
+typedef struct LinkNode
+{
+    ElemType data;
+    struct LinkNode *next;
+} LinkNode,*LinkNodePtr;
+
+
+LinkNodePtr CreatLinkList(char list[],int len)
+{//将字符串一半的元素存入单链表，当长度为奇数时，中间元素不必存入
+    LinkNodePtr l_head=(LinkNodePtr)malloc(sizeof(LinkNode));//初始化单链表头结点
+    l_head->next=NULL;//刚开始没有第一个元素
+    l_head->data=0;//刚开始链表的长度为0，表头节点的数据域用于保存链表的长度
+
+
+    int n=1;//存入字符串的索引
+    LinkNodePtr node,pre=l_head;//单链表当前工作指针,前驱节点首先指向表头
+    while(n<=len/2) //存入一半的元素，奇数个中间元素不存入
+    {
+        node=(LinkNodePtr)malloc(sizeof(LinkNode));//创建新节点
+        node->data=list[n-1];//第一次循环，n=1;最后一次循环，n=len/2;
+        node->next=NULL;//!!NULL
+        pre->next=node;//!!!!!忘记把新的节点链接到单链表上
+        pre=node;
+        l_head->data++;
+        n++;
+    }
+    return l_head;
+};
+int adjust(/*带表头的单链表头指针*/LinkNodePtr head,/*原字符串*/char list[],/*字符串的长度*/int len)
+{
+    int i,j=len,flag=1;//i是字符串后半部分的开始，j是在字符串后半部分中的比较索引，从最后一个元素开始
+    //flag=1 是回环字符串
+    //flag=0 不是回环字符串
+    LinkNodePtr node=NULL;
+    node=head->next;//在单链表中的指针，用于标记当前链表节点
+    if(len%2) //如果是奇数，越过中间元素
+    {
+        i=len/2+2;
+    }
+    else
+    {
+        i=len/2+1;
+    }
+    while(j>=i) //注意，i,j都代表实际位置，而不是索引,数组的后边向前比较
+    {
+        if(list[j-1]==node->data)//下标不要忘记减一
+        {
+            j--;
+            node=node->next;
+        }
+        else
+        {
+            flag=0;
+            break;
+        }
+    }
+    return flag;
+}
+
+
+
+
+int main()
+{
+    LinkNodePtr LHead;//带有头结点的链表的头指针
+    int res;//1:是回环序列；0：不是回环序列；
+
+
+
+    //字符串数组与字符串是不同的
+    char list1[]="xyx" ;
+    int n1=3;
+    char list2[]="xyyx";
+    int n2=4;
+    char list3[]= "xyyxz";
+    int n3=5;
+    LinkNodePtr node;
+
+
+
+
+
+    LHead=CreatLinkList(list1,n1);
+    node=LHead->next;
+    /*printf("链表内容为：\n");
+    while(node){
+        printf("%c",node->data);
+        node=node->next;
+    }*/
+    res=adjust(LHead,list1,n1);
+    printf("\nlist1-%s:%d\n",list1,res);
+
+
+
+
+    LHead=CreatLinkList(list2,n2);
+    node=LHead->next;
+    /*printf("链表内容为：\n");
+    while(node){
+        printf("%c",node->data);
+        node=node->next;
+    }*/
+    res=adjust(LHead,list2,n2);
+    printf("\nlist2-%s:%d\n",list2,res);
+
+
+
+    LHead=CreatLinkList(list3,n3);
+    node=LHead->next;
+    /*printf("链表内容为：\n");
+    while(node){
+        printf("%c",node->data);
+        node=node->next;
+    }*/
+    res=adjust(LHead,list3,n3);
+    printf("\nlist3-%s:%d\n",list3,res);
+
+
+
+
+
+
+
+    return 0;
+}
