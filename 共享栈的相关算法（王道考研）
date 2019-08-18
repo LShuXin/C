@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAXSIZE 100
+typedef char ElemType;
+struct stack
+{
+    ElemType data[MAXSIZE];
+    int s_top[2];
+};
+
+
+//栈的初始化
+struct stack InitStack()
+{
+    struct stack s;
+    s.s_top[0]=-1;//左边栈顶
+    s.s_top[1]=MAXSIZE;//右边的栈顶
+    return s;
+};
+
+
+
+//进栈算法
+int EnStack(struct stack *s,int num,ElemType data)
+{
+//栈指针
+//栈的号码（0/1用于区分左右进栈）
+//进栈数据
+//由于栈顶指针始终指向栈顶元素，
+//所以进栈时应该先操作栈顶指针再存元素
+
+
+
+    /*先判断是否栈满*/
+    if(s->s_top[1]-s->s_top[0]==1)
+    {
+        printf("栈满！");
+        return 0;
+    }
+
+
+    /*再判断进哪个栈*/
+    if(num==0||num==1)//先判断是哪个栈进栈
+    {
+        if(num==0)
+        {
+            s->data[++s->s_top[0]]=data;
+            return 1;
+        }
+        else
+        {
+            s->data[--s->s_top[1]]=data;
+            return 1;
+        }
+    }
+    else
+    {
+        printf("stack Num Error!\n");
+        return 0;
+    }
+};
+
+
+
+
+/*退栈算法*/
+int DeStack(struct stack *s,int num)
+{
+//栈指针
+//要退栈的编号
+//由于是退栈，只需要更改栈顶的数值即可
+//退栈算法返回栈顶元素
+
+    /*需要先判断是哪个栈退栈，再判断该栈是否为空，
+    因为是两个栈，在退栈时判断全部空间是否为空是
+    没有意义的，需要单独判断需要退栈的栈是否为空*/
+    ElemType data;//用于返回栈顶元素
+
+
+    if(num==1||num==0) //判断栈编号是否合法
+    {
+
+        if(num==0) //哪个栈退栈
+        {
+            if(s->s_top[0]==-1)
+            {
+                printf("Stack0 Empty!");
+                exit(0);
+            }
+            {
+                data=s->data[s->s_top[0]--];
+                return data;
+            }
+        }
+        else
+        {
+            if(s->s_top[1]==MAXSIZE){
+                printf("Stack1 Empty!");
+                exit(0);
+            }else{
+                data=s->data[s->s_top[1]++];
+                return data;
+            }
+
+
+        }
+    }
+    else
+    {
+        printf("Stack Num Error\n");
+        exit(0);
+    }
+
+
+
+
+    /*再判断是哪一个栈*/
+
+
+
+
+
+}
+
+
+
+
+
+
+
+int main()
+{
+
+    /*
+    两个栈共享向量空同,将两个的栈底设在向量两端,初始时
+    s1栈顶指针为-1,s2栈顶指针为maxsize。两个顶指针相邻
+    时为满。两个钱顶相向，迎面增长,顶指针指向栈顶元素，
+    设计进栈、退栈、判断栈空、判断栈满算法
+    */
+
+
+
+
+
+
+
+
+
+    return 0;
+}
