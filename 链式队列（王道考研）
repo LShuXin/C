@@ -4,8 +4,8 @@
 #define false 0
 typedef int bool;
 typedef char ElemType;
-/*链式队列的节点结构*/
-typedef struct{
+
+typedef struct LinkNode{
   ElemType data;
   struct LinkNode *next;
   /*！！！！！易出错！！！！！！！！*/
@@ -16,22 +16,39 @@ typedef struct{
     LinkNode *front,*rear;
     int lenth;
 }LinkQueue;
-
 /*front==rear==NULL时链栈为空*/
+
+
+
+/*链式队列的节点结构*/
+/*链式队列终归是队列，要满足先进先出的规则
+  这里采用了两个指针，front和rear分别指向队列的头和尾
+  进队先然要从队尾rear处进，出队要从队头front
+*/
+
+
+
+
+
+
+
 
 
 /*初始化*/
 /*有一个头结点简化操作*/
-void InitQueue(LinkQueue *q){
+LinkQueue *InitQueue(LinkQueue *q){
+    q=(LinkQueue*)malloc(sizeof(LinkQueue));
     q->front=q->rear=(LinkNode*)malloc(sizeof(LinkNode));
-    q->front->next=NULL;
+    q->front->next=NULL;//！！！！！
+    /*printf("\n***%p+++%p***\n",q->rear,q->front);*/
+    return q;
 }
 /*判空*/
 bool QueueEmpty(LinkQueue *q){
     if(q->front==q->rear){
         return true;
     }else{
-        return true;
+        return false;
     }
 }
 /*入队*/
@@ -66,6 +83,24 @@ ElemType DeQueue(LinkQueue *q){
 
 int main()
 {
-    printf("Hello world!\n");
+
+    /*测试*/
+    printf("***********1-10进队：\n");
+    LinkQueue *Q;
+    Q=InitQueue(Q);
+    /*printf("\n***%p+++%p***\n",Q->rear,Q->front);*/
+    int n=1;
+    ElemType x;
+    while(n<=10){
+        printf("%d入队\n",n);
+        EnQueue(Q,n);
+        n++;
+    }
+    printf("***********出队：\n");
+    while(!QueueEmpty(Q)){
+        x=DeQueue(Q);
+        printf("%d出队\n",x);
+    }
+    printf("***********结束。\n");
     return 0;
 }
