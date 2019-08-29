@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAXSIZE 100/*预定义串的最大长度*/
+typedef struct
+{
+    char ch[MAXSIZE];
+    int length;
+} SString;
+int Index(SString S,SString T,int pos)
+{
+    int i,j;/*主串、子串索引*/
+    i=j=1;
+    while(i<=S.length&&j<=T.length)
+    {
+        if(S.ch[i]==T.ch[j])
+        {
+            i++,j++;
+        }
+        else
+        {
+            i=i-j+2;/*因为要前进，所以会退后加的是而不是1*/
+            j=1;/*子串重新开始*/
+        }
+        if(j>T.length)
+        {
+            return i-T.length;/*！！！！！！！！重点！！！！！！！*/
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
+
+
+
+
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}
