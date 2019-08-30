@@ -9,7 +9,8 @@ typedef struct
 int Index(SString S,SString T,int pos)
 {
     int i,j;/*主串、子串索引*/
-    i=j=1;
+    i=pos;/*不要设为1！！！！！！！*/
+    j=1;
     while(i<=S.length&&j<=T.length)
     {
         if(S.ch[i]==T.ch[j])
@@ -29,7 +30,10 @@ int Index(SString S,SString T,int pos)
         {
             return 0;
         }
+
     }
+
+
 }
 
 
