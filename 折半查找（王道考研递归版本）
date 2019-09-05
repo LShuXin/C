@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef int ElemType;
+/*查找表结构*/
+typedef struct{
+    ElemType *elem;
+    int length;
+}SSTable;
+
+/*递归版本的折半查找*/
+int Binary_Search_Rec(SSTable ST,ElemType key,int low,int high){
+    if(low>high) return 0;
+    int mid=(high+low)/2;
+    if(key>ST.elem[mid])
+        return Binary_Search_Rec(ST,key,mid+1,high);
+    else if(key<ST.elem[mid])
+        return Binary_Search_Rec(ST,key,low,mid-1);
+    else
+        return mid;
+}
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}
