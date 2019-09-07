@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TRUE 1
+#define FALSE 0
+typedef int bool;
+typedef int KeyType;
+typedef int DataType;
+typedef struct LinkNode{
+    KeyType key;
+    DataType data;
+    struct LinkNode *next;
+}LinkNode,*LinkNodePtr;
+typedef LinkNode LinkHead;
+
+
+bool LinkSearch(LinkHead L,KeyType key,DataType *info){
+    LinkNodePtr q=&L;
+    LinkNodePtr p=q->next;
+    while(p->key!=key&&p!=NULL){
+            p=p->next;
+            q=p;
+    }
+    if(p!=NULL){/*找到了节点*/
+        *info=p->data;/*把数据送出去*/
+
+        /*调整节点，如果data是复杂的这种效率不高*/
+        KeyType tempkey;
+        DataType tempdata;
+        tempkey=q->key;
+        tempdata=q->data;
+        q->key=p->key;
+        q->data=p->data;
+        p->key=tempkey;
+        p->data=tempdata;
+
+
+        return TRUE;
+    }else{
+       return FALSE;
+    }
+}
+
+
+
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}
