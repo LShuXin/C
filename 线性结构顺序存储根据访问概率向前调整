@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef int ElemType;
+typedef struct{
+    /*线性表的第一个位置空闲*/
+    ElemType *elem;
+    int length;
+}SeqList;
+
+int SeqSearch(SeqList L,ElemType key){
+    int i=1;
+    ElemType temp;
+    while(L.elem[i]!=key&&i<=L.length) ++i;
+    if(i>=1&&i<=L.length){/*如果找到*/
+        temp=L.elem[i];
+        L.elem[i]=L.elem[i-1];
+        L.elem[i-1]=temp;
+        return --i;
+    }else{
+        return 0;
+    }
+}
+
+
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}
